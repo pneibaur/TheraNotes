@@ -84,6 +84,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'main_app.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -97,5 +98,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
