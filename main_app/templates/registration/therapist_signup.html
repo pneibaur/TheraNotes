@@ -2,5 +2,11 @@
 {% block content %}
 
 <h1>therapist signup page.</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{user_form}}
+    {{therapist_form}}
+    <input type="submit" value="Submit">
+</form>
 
 {% endblock content %}

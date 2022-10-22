@@ -12,3 +12,11 @@ class PatientSignupForm(ModelForm):
     class Meta:
         model = Patient
         fields = ['desired_treatment',]
+
+class TherapistSignupForm(ModelForm):
+    class Meta:
+        model = Therapist
+        fields = ['therapy_license', 'treatment_specialty',]
+
+    # def save(self):
+    #     patient = super().save(commit=False)

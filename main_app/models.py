@@ -15,7 +15,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self) -> str:
-        return f"User full name: {self.first_name} {self.last_name}."
+        return f"User full name: {self.first_name} {self.last_name}"
     
 
 
@@ -24,9 +24,13 @@ class Patient(models.Model):
     desired_treatment = models.TextField(max_length=250)
 
     def __str__(self) -> str:
-        return f"Patient {self.user.first_name}, who says: {self.desired_treatment}"
+        return f"Patient {self.user.first_name}, who wants: {self.desired_treatment}"
 
 class Therapist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     therapy_license = models.CharField(max_length=50)
     treatment_specialty = models.CharField(max_length=100)
+    patient = models.ManyToManyField(Patient)
+
+    def __str__(self) -> str:
+        return f"Therapist {self.user}, with licence {self.therapy_license}, specializing in {self.treatment_specialty}"
