@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if therapists %}
+<h1>Meet our therapists</h1>
+<ul>
+    {% for t in therapists %}
+    <li>{{t}}: <a href="{% url 'therapist_detail' t.user_id %}">meet me</a></li>
+    {% endfor %}
+</ul>
+
+{% elif therapist_patients %}
+<h1>Therapists only: patient index</h1>
+<ul>
+    {% for p in therapist_patients %}
+    <li>patient: {{p}} <a href="{% url 'patient_detail' p.user_id %}">see profile</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if unassigned_patients %}
+<ul>
+    {% for p in unassigned_patients %}
+    <li>unassigned patient: {{p}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    
+{% endblock content %}

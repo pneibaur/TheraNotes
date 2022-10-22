@@ -9,8 +9,12 @@
 <header>
     <nav>
         <div>TheraNotes</div>
+        {% if user.is_authenticated %}
+        <div>Hello {{user.first_name}}</div>
+        {% endif %}
         <ul>
             <li><a href="{% url 'signup' %}">Signup</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
         </ul>
     </nav>
 </header>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if therapist %}
+
+
+<h1>{{therapist.user.first_name}} {{therapist.user.last_name}}</h1>
+
+<div class="details">
+    <span>{{therapist.therapist_license}}</span>
+    <span>{{therapist.treatment_specialty}}</span>
+</div>
+<h4>therapists only: <a href="{% url 'patient_index' therapist.user_id %}">See patient index</a></h4>
+<p>am I a therapist? {{therapist.user.is_therapist}}</p>
+<p>am I a patient? {{therapist.user.is_patient}}</p>
+<br><br>
+{% elif patient %}
+
+<h1>Patient: {{patient.user.first_name}} {{patient.user.last_name}}</h1>
+<div class="details">
+    <span>Desired Treatment: {{patient.desired_treatment}}</span>
+    <span>Road Map: {{therapist.road_map}}</span>
+</div>
+<p>am I a therapist? {{patient.user.is_therapist}}</p>
+<p>am I a patient? {{patient.user.is_patient}}</p>
+<br><br>
+
+{% endif %}
+
+{% endblock content %}

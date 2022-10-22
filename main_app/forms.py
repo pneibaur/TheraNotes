@@ -6,7 +6,7 @@ from django.contrib.auth import forms, get_user_model
 class CustomUserCreationForm(forms.UserCreationForm):
     class Meta:
         model= get_user_model()
-        fields = ('username', 'first_name', 'last_name', 'email',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'interests', 'bio', )
 
 class PatientSignupForm(ModelForm):
     class Meta:

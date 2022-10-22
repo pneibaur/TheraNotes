@@ -10,4 +10,7 @@ urlpatterns = [
     # THERAPISTS
     path("therapists/", views.therapist_index, name='therapist_index'),
     path("therapists/<int:therapist_id>", views.therapist_detail, name='therapist_detail'),
+    # PATIENTS
+    path("patients/<int:therapist_id>", views.patient_index, name='patient_index'),
+    path("patients/<int:patient_id>", views.patient_detail, name='patient_detail'),
 ]
