@@ -11,7 +11,9 @@
     <span>{{therapist.therapist_license}}</span>
     <span>{{therapist.treatment_specialty}}</span>
 </div>
+{% if user.is_therapist %}
 <h4>therapists only: <a href="{% url 'patient_index' therapist.user_id %}">See patient index</a></h4>
+{% endif %}
 <p>am I a therapist? {{therapist.user.is_therapist}}</p>
 <p>am I a patient? {{therapist.user.is_patient}}</p>
 <br><br>

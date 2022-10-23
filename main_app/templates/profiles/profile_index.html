@@ -13,14 +13,19 @@
 <h1>Therapists only: patient index</h1>
 <ul>
     {% for p in therapist_patients %}
-    <li>patient: {{p}} <a href="{% url 'patient_detail' p.user_id %}">see profile</a></li>
+    <li>patient: {{p}} <a href="{% url 'patient_detail' p.user_id %}">see profile</a>, 
+        <a href="{% url 'patient_unassign' therapist_id p.user_id %}">remove from caseload</a>
+    </li>
     {% endfor %}
 </ul>
 {% endif %}
 {% if unassigned_patients %}
 <ul>
     {% for p in unassigned_patients %}
-    <li>unassigned patient: {{p}}</li>
+    <li>
+        unassigned patient:{{p.user_id}} {{p}}
+        <a href="{% url 'patient_assign' therapist_id p.user_id %}">add patient</a>
+    </li>
     {% endfor %}
 </ul>
 {% endif %}

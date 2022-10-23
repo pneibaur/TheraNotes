@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
 from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm
-from .models import Patient, Therapist, User
-from django.contrib.auth import get_user_model
+from .models import Patient, Therapist
+from django.contrib.auth.decorators import login_required
+# Credit to Vitor Frietas for the guide on making decorators. see decorators.py for URL
+from .decorators import therapist_required, patient_required
 
 
 def home(request):
@@ -68,7 +69,6 @@ def therapist_signup(request):
             'error_message': error_message}
     )
 
-
 def therapist_index(request):
     therapists = Therapist.objects.all()
     return render(request, 'profiles/profile_index.html', {'therapists': therapists})
@@ -78,21 +78,35 @@ def therapist_detail(request, therapist_id):
     therapist = Therapist.objects.get(user_id=therapist_id)
     return render(request, 'profiles/profile_detail.html', {'therapist': therapist})
 
-
+@login_required
+@therapist_required
 def patient_index(request, therapist_id):
-    therapist_patients = Therapist.objects.get(user_id=therapist_id).patient.all()
+    therapist_patients = Therapist.objects.get(
+        user_id=therapist_id).patient.all()
     unassigned_patients = Patient.objects.filter(therapist__isnull=True)
-    return render(request, 'profiles/profile_index.html', {'therapist_patients': therapist_patients, 'unassigned_patients': unassigned_patients})
+    return render(request, 'profiles/profile_index.html', {"therapist_id": therapist_id, 'therapist_patients': therapist_patients, 'unassigned_patients': unassigned_patients})
 
-
+@login_required
 def patient_detail(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
     return render(request, 'profiles/profile_detail.html', {'patient': patient})
 
+@login_required
+@therapist_required
+def patient_assign(request, therapist_id, patient_id):
+    print("YOU ARE NOW IN ASSIGN_PATIENT")
+    p = Patient.objects.get(user_id=patient_id)
+    Therapist.objects.get(user_id=therapist_id).patient.add(p)
+    return redirect('patient_index', therapist_id=therapist_id)
 
+@login_required
+@therapist_required
+def patient_unassign(request, therapist_id, patient_id):
+    p = Patient.objects.get(user_id=patient_id)
+    Therapist.objects.get(user_id=therapist_id).patient.remove(p)
+    return redirect('patient_index', therapist_id=therapist_id)
+
+@login_required
 def patient_home(request, patient_id, therapist_id):
     pass
 
-
-def assign_patient(request, patient_id, therapist_id):
-    pass

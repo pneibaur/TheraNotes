@@ -9,13 +9,22 @@
 <header>
     <nav>
         <div>TheraNotes</div>
-        {% if user.is_authenticated %}
-        <div>Hello {{user.first_name}}</div>
-        {% endif %}
         <ul>
+        {% if user.is_authenticated %}
+            <li>Hello {{user.first_name}}</li>
+            <li><a href="{% url 'logout' %}">logout</a></li>
+            {% if user.is_therapist %}
+            <li><a href="{% url 'patient_index' user.id %}">My Patients</a></li>
+            {% elif user.is_patient %}
+            <li><a href="{% url 'patient_detail' user.id %}">My Home Page</a></li>
+            {% endif %}
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'signup' %}">Signup</a></li>
+        {% endif %}
             <li><a href="{% url 'home' %}">Home</a></li>
         </ul>
+        <hr>
     </nav>
 </header>
 <body>
@@ -23,6 +32,7 @@
     {% endblock content %}
 </body>
 <footer>
+    <hr>
     <div class="page-footer">
         About | &copy; 2022 TheraNotes
     </div>
