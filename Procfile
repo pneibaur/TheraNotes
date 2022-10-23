@@ -1,1 +1,1 @@
-web: gunicorn thera-notes.wsgi
+web: gunicorn theranotes.wsgi
