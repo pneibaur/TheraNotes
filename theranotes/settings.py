@@ -5,8 +5,6 @@ import os
 from dotenv import load_dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-import django_heroku
-django_heroku.settings(locals())
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -104,3 +102,6 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_heroku
+django_heroku.settings(locals())
