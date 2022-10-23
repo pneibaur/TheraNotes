@@ -15,4 +15,5 @@ urlpatterns = [
     path("therapists/<int:therapist_id>/patients/", views.patient_index, name='patient_index'),
     path("therapists/<int:therapist_id>/add_patient/<int:patient_id>/", views.patient_assign, name='patient_assign'),
     path("therapists/<int:therapist_id>/remove_patient/<int:patient_id>/", views.patient_unassign, name='patient_unassign'),
+    path("patients/<int:patient_id>/home/", views.patient_home, name='patient_home'),
 ]

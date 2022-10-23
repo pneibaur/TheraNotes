@@ -11,6 +11,15 @@
     <span>{{therapist.therapist_license}}</span>
     <span>{{therapist.treatment_specialty}}</span>
 </div>
+<div>
+    <ul>
+        <li>Interests: {{therapist.user.interests}}</li>
+        <li>Bio: {{therapist.user.bio}}</li>
+    </ul>
+</div>
+<div>
+    <p><a href="{% url 'therapist_index' %}">back to therapists</a></p>
+</div>
 {% if user.is_therapist %}
 <h4>therapists only: <a href="{% url 'patient_index' therapist.user_id %}">See patient index</a></h4>
 {% endif %}

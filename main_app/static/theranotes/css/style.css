@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: linear-gradient(150deg, blue, black);
+}
+main {
+    flex: 1 0 auto;
+}
+
+.head_foot {
+    background-color: rgba(183, 28, 28, 0.9);
+}

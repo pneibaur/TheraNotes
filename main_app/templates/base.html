@@ -1,40 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'theranotes/css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>TheraNotes</title>
 </head>
+<body>
 <header>
-    <nav>
-        <div>TheraNotes</div>
-        <ul>
-        {% if user.is_authenticated %}
-            <li>Hello {{user.first_name}}</li>
-            <li><a href="{% url 'logout' %}">logout</a></li>
-            {% if user.is_therapist %}
-            <li><a href="{% url 'patient_index' user.id %}">My Patients</a></li>
-            {% elif user.is_patient %}
-            <li><a href="{% url 'patient_detail' user.id %}">My Home Page</a></li>
-            {% endif %}
-        {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Signup</a></li>
-        {% endif %}
-            <li><a href="{% url 'home' %}">Home</a></li>
-        </ul>
-        <hr>
+    <nav class="head_foot">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="{% url 'home' %}">Thera-Notes</a>
+                <ul class="right">
+                    {% if user.is_authenticated %}
+                    <li>Hello {{user.first_name}}</li>
+                    <li><a href="{% url 'logout' %}">logout</a></li>
+                    {% if user.is_therapist %}
+                    <li><a href="{% url 'patient_index' user.id %}">My Patients</a></li>
+                    {% elif user.is_patient %}
+                    <li><a href="{% url 'patient_detail' user.id %}">Profile</a></li>
+                    <li><a href="{% url 'patient_home' user.id %}">Home</a></li>
+                    {% endif %}
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
-<body>
-    {% block content %}
-    {% endblock content %}
-</body>
-<footer>
-    <hr>
-    <div class="page-footer">
+<main>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</main>
+<footer class='page-footer head_foot'>
+    <div class="container">
         About | &copy; 2022 TheraNotes
     </div>
 </footer>
+</body>
 </html>

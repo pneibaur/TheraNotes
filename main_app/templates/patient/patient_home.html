@@ -1,6 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Patient home page</h1>
-
+<h1>{{patient.user.first_name}} home page</h1>
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                {% if therapists.count < 1 %}
+                <h1>Therapists: 
+                    {% for t in therapists %}
+                    {{t.user.first_name}}
+                    {% endfor %}
+                </h1>
+                {% else %}
+                <h1>Therapist: {{therapists.first.user.first_name}}</h1>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h1>My road map:</h1>
+                <h4>{{patient.road_map}}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <h1>sessions will go here...</h1>
+            </div>
+        </div>
+    </div>
+</div>
+    
 {% endblock content %}

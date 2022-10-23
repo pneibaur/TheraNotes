@@ -107,6 +107,8 @@ def patient_unassign(request, therapist_id, patient_id):
     return redirect('patient_index', therapist_id=therapist_id)
 
 @login_required
-def patient_home(request, patient_id, therapist_id):
-    pass
+def patient_home(request, patient_id):
+    patient = Patient.objects.get(user_id=patient_id)
+    therapists = patient.therapist_set.all()
+    return render(request, "patient/patient_home.html", {"patient": patient, 'therapists': therapists})
 
