@@ -1,4 +1,5 @@
-from .models import Therapist, Patient
+from pyexpat import model
+from .models import Therapist, Patient, Session_Note
 from django.forms import forms, ModelForm
 from django.contrib.auth import forms, get_user_model
 
@@ -18,5 +19,7 @@ class TherapistSignupForm(ModelForm):
         model = Therapist
         fields = ['therapy_license', 'treatment_specialty',]
 
-    # def save(self):
-    #     patient = super().save(commit=False)
+class NoteForm(ModelForm):
+    class Meta:
+        model = Session_Note
+        fields = ['note',]

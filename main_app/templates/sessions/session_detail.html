@@ -4,33 +4,57 @@
 <div class="row grey-text text-lighten-2 center">
     <h1>SESSION DETAIL</h1>
 </div>
+{% if user.id == patient.user_id or user.id == therapist.user_id %}
 <div class="row">
     <div class="card">
         <div class="card-content">
             <span class="card-title">
                 {{session.creation_date}}
             </span>
+            {% if user.id == therapist.user_id %}
             <hr>
             <h4>Charting: </h4>
             <p>
                 {{session.session_chart}}
             </p>
+            {% endif %}
             <hr>
-            <h4>Patient-friendly: </h4>
+            <h4>Patient Charting: </h4>
             <p>
                 {{session.chart_patient_sees}}
             </p>
         </div>
     </div>
+</div>
+<div class="row">
     <hr>
-    <h2 class="grey-text text-lighten-2 center">SESSION NOTES</h2>
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">
-                NOTES GO HERE
-            </span>
+    <div class="col s12 m6">
+        <h2 class="grey-text text-lighten-2 center">SESSION NOTES</h2>
+        <div class="card">
+            {% for note in notes %}
+            <div class="card-content">
+                <span class="card-title">
+                    {{note.user.first_name}}:
+                </span>
+                <p><small>{{note.creation_date}}</small></p>
+                <p><big> {{note.note}}</big></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <h2 class="grey-text text-lighten-2 center">ADD NOTE</h2>
+        <div class="card">
+            <div class="card-content">
+                <form action="{% url 'add_note' user.id session.id %}" method="post">
+                    {% csrf_token %}
+                    {{note_form.as_p}}
+                    <input type="submit" value="Add" class="btn red darken-2">
+                </form>
+            </div>
         </div>
     </div>
 </div>
+{% endif %}
 
 {% endblock content %}
