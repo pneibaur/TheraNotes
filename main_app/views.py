@@ -143,12 +143,16 @@ def add_note(request, user_id, session_id):
         new_note.save()
     return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
 
+@login_required
+@therapist_required
 def session_create(request, therapist_id, patient_id):
     session_form = NewSessionForm()
     patient = Patient.objects.get(user_id=patient_id)
     context = {'session_form': session_form, 'therapist_id': therapist_id, 'patient': patient}
     return render(request, 'sessions/new_session_form.html', context)
 
+@login_required
+@therapist_required
 def add_new_session(request, therapist_id, patient_id):
     form = NewSessionForm(request.POST)
     therapist = Therapist.objects.get(user_id=therapist_id)

@@ -23,7 +23,7 @@
                         <li><a class="chip" href="{% url 'therapist_detail' user.id %}">{{user.first_name}}</a></li>
                         <li><a href="{% url 'patient_index' user.id %}">My Patients</a></li>
                         {% elif user.is_patient %}
-                        <li><a href="{% url 'patient_detail' user.id %}">Profile</a></li>
+                        <li><a class="chip" href="{% url 'patient_detail' user.id %}">{{user.first_name}}</a></li>
                         <li><a href="{% url 'patient_home' user.id %}">Home</a></li>
                         {% endif %}
                     <li><a href="{% url 'logout' %}">logout</a></li>
