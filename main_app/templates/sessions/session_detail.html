@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if user.is_therapist %}
+<br>
+<div class="row right">
+    <a class="btn red darken-2" href="{% url 'patient_home' patient.user_id %}">Back</a>
+</div>
+<br>
+{% endif %}
+
 <div class="row grey-text text-lighten-2 center">
     <h1>SESSION DETAIL</h1>
 </div>
