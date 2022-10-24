@@ -1,5 +1,6 @@
 from pyexpat import model
-from .models import Therapist, Patient, Session_Note
+from statistics import mode
+from .models import Therapist, Patient, Session_Note, Tx_Session
 from django.forms import forms, ModelForm
 from django.contrib.auth import forms, get_user_model
 
@@ -23,3 +24,8 @@ class NoteForm(ModelForm):
     class Meta:
         model = Session_Note
         fields = ['note',]
+
+class NewSessionForm(ModelForm):
+    class Meta:
+        model = Tx_Session
+        fields = ['session_chart', 'chart_patient_sees']

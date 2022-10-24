@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
-from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm, NoteForm
-from .models import Patient, Therapist, Tx_Session, Session_Note, User
+from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm, NoteForm, NewSessionForm
+from .models import Patient, Therapist, Tx_Session, User
 from django.contrib.auth.decorators import login_required
 # Credit to Vitor Frietas for the guide on making decorators. see decorators.py for URL
 from .decorators import therapist_required, patient_required
@@ -140,4 +140,19 @@ def add_note(request, user_id, session_id):
         new_note.user_id = user_id
         new_note.session_id = session_id
         new_note.save()
+    return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
+
+def session_create(request, therapist_id, patient_id):
+    session_form = NewSessionForm()
+    context = {'session_form': session_form, 'therapist_id': therapist_id, 'patient_id': patient_id}
+    return render(request, 'sessions/new_session_form.html', context)
+
+def add_new_session(request, therapist_id, patient_id):
+    form = NewSessionForm(request.POST)
+    if form.is_valid():
+        new_session = form.save(commit=False)
+        new_session.patient = patient_id
+        new_session.therapist_set.add(id=therapist_id)
+        session_id = new_session.id
+        new_session.save()
     return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
