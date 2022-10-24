@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+{% comment %} DISPLAY THERAPISTS. AVAILABLE TO PUBLIC {% endcomment %}
 {% if therapists %}
 <h1 class="grey-text text-lighten-2">MEET OUR STAFF</h1>
 <div class="row">
@@ -19,7 +19,7 @@
     {% endfor %}
 </div>
 
-{% elif therapist_patients %}
+{% elif user.is_therapist %}
 <h1 class="grey-text text-lighten-2">CASELOAD</h1>
 <div class="row">
     {% for p in therapist_patients %}
