@@ -1,6 +1,7 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm
-from .models import Patient, Therapist
+from .models import Patient, Therapist, Tx_Session, Session_Note
 from django.contrib.auth.decorators import login_required
 # Credit to Vitor Frietas for the guide on making decorators. see decorators.py for URL
 from .decorators import therapist_required, patient_required
@@ -110,5 +111,7 @@ def patient_unassign(request, therapist_id, patient_id):
 def patient_home(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
     therapists = patient.therapist_set.all()
-    return render(request, "patient/patient_home.html", {"patient": patient, 'therapists': therapists})
+    sessions = patient.tx_session_set.all()
+    context = {"patient": patient, 'therapists': therapists, 'sessions': sessions}
+    return render(request, "patient/patient_home.html", context)
 

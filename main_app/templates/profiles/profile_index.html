@@ -1,33 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 {% if therapists %}
-<h1>Meet our therapists</h1>
-<ul>
+<h1 class="grey-text text-lighten-2">MEET OUR STAFF</h1>
+<div class="row">
     {% for t in therapists %}
-    <li>{{t}}: <a href="{% url 'therapist_detail' t.user_id %}">meet me</a></li>
+    <div class="col s12 m3">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{t}}</span>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'therapist_detail' t.user_id %}">meet me</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% elif therapist_patients %}
-<h1>Therapists only: patient index</h1>
-<ul>
+<h1 class="grey-text text-lighten-2">CASELOAD</h1>
+<div class="row">
     {% for p in therapist_patients %}
-    <li>patient: {{p}} <a href="{% url 'patient_detail' p.user_id %}">see profile</a>, 
-        <a href="{% url 'patient_unassign' therapist_id p.user_id %}">remove from caseload</a>
-    </li>
+    <div class="col s12 m3">
+        <div class="card">
+            <div class="card-content">
+                <p class="card-title">{{p}} 
+                </p>
+            </div>
+            <div class="card-action">
+                <span>
+                    <a href="{% url 'patient_detail' p.user_id %}">PROFILE</a>
+                    <hr>
+                    <a href="{% url 'patient_unassign' therapist_id p.user_id %}">REMOVE</a>
+                </span>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endif %}
-{% if unassigned_patients %}
-<ul>
+<hr>
+<div class="row">
+    {% if unassigned_patients %}
+    <h1 class="grey-text text-lighten-2">UNASSIGNED PATIENTS</h1>
     {% for p in unassigned_patients %}
-    <li>
-        unassigned patient:{{p.user_id}} {{p}}
-        <a href="{% url 'patient_assign' therapist_id p.user_id %}">add patient</a>
-    </li>
+    <div class="col s12 m3">
+        <div class="card">
+            <div class="card-content">
+                {{p.user.first_name}} {{p.user.last_name}}
+            </div>
+            <div class="card-action">
+                <a href="{% url 'patient_assign' therapist_id p.user_id %}">add patient</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
-{% endif %}
+    {% else %}
+    <h1 class="grey-text text-lighten-2">ALL PATIENTS ARE ASSIGNED...</h1>
+    {% endif %}
+</div>
     
 {% endblock content %}

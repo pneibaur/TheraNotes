@@ -1,36 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{patient.user.first_name}} home page</h1>
+{% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
+
+<h1 class="grey-text text-lighten-2 center">{{patient.user.first_name}}'s home page</h1>
+<hr>
 <div class="row">
     <div class="col s12 m6">
+        <h3 class="grey-text text-lighten-2 center">OVERVIEW</h3>
         <div class="card">
             <div class="card-content">
                 {% if therapists.count < 1 %}
-                <h1>Therapists: 
+                <span class="card-title">Therapists: 
                     {% for t in therapists %}
-                    {{t.user.first_name}}
+                    {{t.user.first_name}}, 
                     {% endfor %}
-                </h1>
+                </span>
                 {% else %}
-                <h1>Therapist: {{therapists.first.user.first_name}}</h1>
+                <span class="card-title">Therapist: {{therapists.first.user.first_name}}</span>
+                <span class="card-title">License: {{therapists.first.therapy_license}}</span>
+                <span class="card-title">Specialty: {{therapists.first.treatment_specialty}}</span>
                 {% endif %}
             </div>
         </div>
         <div class="card">
             <div class="card-content">
-                <h1>My road map:</h1>
-                <h4>{{patient.road_map}}</h4>
+                <span class="card-title">ROAD MAP</span>
+                <span>{{patient.road_map}}</span>
             </div>
         </div>
     </div>
     <div class="col s12 m6">
+        <h3 class="grey-text text-lighten-2 center">SESSIONS</h3>
+    {% if sessions %}
+    {% for session in sessions %}
         <div class="card">
             <div class="card-content">
-                <h1>sessions will go here...</h1>
+                <span class="card-title">{{session.creation_date}}</span>
+            </div>
+            <div class="card-action">
+                <a href="#">DETAILS</a>
             </div>
         </div>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
     
+{% endif %}
 {% endblock content %}

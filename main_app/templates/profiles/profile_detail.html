@@ -2,40 +2,43 @@
 
 {% block content %}
 
+<h1>PROFILE PAGE</h1>
+
+{% comment %} CHECKS IF OBJECT THERAPIST HAS BEEN SENT TO THIS PAGE {% endcomment %}
 {% if therapist %}
-
-
-<h1>{{therapist.user.first_name}} {{therapist.user.last_name}}</h1>
-
-<div class="details">
-    <span>{{therapist.therapist_license}}</span>
-    <span>{{therapist.treatment_specialty}}</span>
+<div class="card">
+    <div class="card-content">
+        <h1>{{therapist.user.first_name}} {{therapist.user.last_name}}</h1>
+        <div class="details">
+            <p>License: {{therapist.therapist_license}}</p>
+            <p>Specialty: {{therapist.treatment_specialty}}</p>
+        </div>
+        <div class="about">
+            <p>Interests: {{therapist.user.interests}}</p>
+            <p>Bio: {{therapist.user.bio}}</p>
+        </div>
+    </div>
+    <div class="card-action">
+        <p><a href="{% url 'therapist_index' %}">back to therapists</a></p>
+    </div>
 </div>
-<div>
-    <ul>
-        <li>Interests: {{therapist.user.interests}}</li>
-        <li>Bio: {{therapist.user.bio}}</li>
-    </ul>
-</div>
-<div>
-    <p><a href="{% url 'therapist_index' %}">back to therapists</a></p>
-</div>
-{% if user.is_therapist %}
-<h4>therapists only: <a href="{% url 'patient_index' therapist.user_id %}">See patient index</a></h4>
-{% endif %}
-<p>am I a therapist? {{therapist.user.is_therapist}}</p>
-<p>am I a patient? {{therapist.user.is_patient}}</p>
-<br><br>
-{% elif patient %}
+    {% endif %}
+    
+{% comment %} CHECKS IF USER IS THE PATIENT, OR THE THERAPIST BELONGS TO THE PATIENT {% endcomment %}
+{% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
 
-<h1>Patient: {{patient.user.first_name}} {{patient.user.last_name}}</h1>
-<div class="details">
-    <span>Desired Treatment: {{patient.desired_treatment}}</span>
-    <span>Road Map: {{therapist.road_map}}</span>
+<div class="card">
+    <div class="card-content">
+        <h1>Patient {{patient.user.first_name}} {{patient.user.last_name}}</h1>
+        <div class="details">
+            <p>Desired Treatment: {{patient.desired_treatment}}</p>
+            <p>Road Map: {{therapist.road_map}}</p>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'patient_home' patient.user_id %}">{{patient.user.first_name}}'s Home Page</a>
+        </div>
+    </div>
 </div>
-<p>am I a therapist? {{patient.user.is_therapist}}</p>
-<p>am I a patient? {{patient.user.is_patient}}</p>
-<br><br>
 
 {% endif %}
 
