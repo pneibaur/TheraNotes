@@ -14,18 +14,18 @@
 <div class="row center">
     <h1 class="grey-text text-lighten-2">{{patient.user.first_name}}'s home page</h1>
 </div>
-<hr>
+<hr style="width: 40%; margin: 0 auto;">
 <div class="row">
     <div class="col s12 m6">
         <h3 class="grey-text text-lighten-2 center">OVERVIEW</h3>
-        <div class="card">
+        <div class="card m_card">
             <div class="card-content">
                 <span class="card-title">Therapist: {{therapist.user.first_name}}</span>
                 <span class="card-title">License: {{therapist.therapy_license}}</span>
                 <span class="card-title">Specialty: {{therapist.treatment_specialty}}</span>
             </div>
         </div>
-        <div class="card">
+        <div class="card m_card">
             <div class="card-content">
                 <span class="card-title">ROAD MAP</span>
                 <span>{{patient.road_map}}</span>
@@ -36,7 +36,7 @@
         <h3 class="grey-text text-lighten-2 center">SESSIONS</h3>
     {% if sessions %}
     {% for session in sessions %}
-        <div class="card">
+        <div class="card m_card">
             <div class="card-content">
                 <span class="card-title">{{session.creation_date}}</span>
             </div>
@@ -61,7 +61,7 @@
 {% else %}
 <div class="row center grey-text text-lighten-2">
     <h1>NOTHING TO SHOW</h1>
-    <hr>
+    <hr style="width: 40%; margin: 0 auto;">
     <h4>It seems you are not allowed here</h4>
     <p>
         This could be due to the following:

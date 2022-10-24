@@ -1,8 +1,24 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Welcome to the landing page. </h1>
-<a class="btn grey lighten-2 grey-text text-darken-3" href="{% url 'therapist_index' %}">
-    See therapists
-</a>
+<div class="row center grey-text text-lighten-2">
+    <h1>Thera-Notes</h1>
+</div>
+<div class="row grey-text text-lighten-2">
+    <div class="col s12 m6">
+        <h3>Simple.</h3>
+        <h3>Powerful.</h3>
+        <h3>Communication.</h3>
+        <hr>
+        <br>
+        <div class="col s12 right-align">
+            <a class="btn grey lighten-2 grey-text text-darken-3" href="{% url 'therapist_index' %}">
+                Meet our therapists
+            </a>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <h3 class="right-align">Save the day during your sessions.</h3>
+    </div>
+</div>
 
 {% endblock content %}

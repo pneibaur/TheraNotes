@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>patient signup page.</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    {{user_form}}
-    {{patient_form}}
-    <input type="submit" value="Submit">
-</form>
+<div class="row grey-text text-lighten-2 center">
+    <h1>patient signup page.</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{user_form}}
+        {{patient_form}}
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 {% endblock content %}

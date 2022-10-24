@@ -13,7 +13,7 @@
 </head>
 <body>
 <header>
-    <nav class="head_foot">
+    <nav class="head_foot nav_head">
         <div class="nav-wrapper">
             <div class="container">
                 <a href="{% url 'home' %}">Thera-Notes</a>
@@ -42,9 +42,16 @@
         {% endblock content %}
     </div>
 </main>
-<footer class='page-footer head_foot'>
+<footer class='page-footer head_foot nav_foot'>
     <div class="container">
-        About | &copy; 2022 TheraNotes
+        <div class="row">
+            <div class="col">
+                <a class="grey-text text-lighten-2 left-align" href="{% url 'about' %}">About us</a>
+            </div>
+            <div class="col right">
+                &copy; 2022 TheraNotes
+            </div>
+        </div>
     </div>
 </footer>
 </body>

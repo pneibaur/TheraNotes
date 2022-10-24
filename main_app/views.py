@@ -12,6 +12,10 @@ def home(request):
     return render(request, 'home.html')
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 def signup(request):
     return render(request, 'registration/signup.html')
 
@@ -71,6 +75,7 @@ def therapist_signup(request):
             'error_message': error_message}
     )
 
+
 def therapist_index(request):
     therapists = Therapist.objects.all()
     return render(request, 'profiles/profile_index.html', {'therapists': therapists})
@@ -80,6 +85,7 @@ def therapist_detail(request, therapist_id):
     therapist = Therapist.objects.get(user_id=therapist_id)
     return render(request, 'profiles/profile_detail.html', {'therapist': therapist})
 
+
 @login_required
 @therapist_required
 def patient_index(request, therapist_id):
@@ -88,10 +94,12 @@ def patient_index(request, therapist_id):
     unassigned_patients = Patient.objects.filter(therapist__isnull=True)
     return render(request, 'profiles/profile_index.html', {"therapist_id": therapist_id, 'therapist_patients': therapist_patients, 'unassigned_patients': unassigned_patients})
 
+
 @login_required
 def patient_detail(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
     return render(request, 'profiles/profile_detail.html', {'patient': patient})
+
 
 @login_required
 @therapist_required
@@ -101,6 +109,7 @@ def patient_assign(request, therapist_id, patient_id):
     Therapist.objects.get(user_id=therapist_id).patient.add(p)
     return redirect('patient_index', therapist_id=therapist_id)
 
+
 @login_required
 @therapist_required
 def patient_unassign(request, therapist_id, patient_id):
@@ -108,13 +117,16 @@ def patient_unassign(request, therapist_id, patient_id):
     Therapist.objects.get(user_id=therapist_id).patient.remove(p)
     return redirect('patient_index', therapist_id=therapist_id)
 
+
 @login_required
 def patient_home(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
     therapist = patient.therapist_set.first()
     sessions = patient.tx_session_set.all().order_by('-creation_date')
-    context = {"patient": patient, 'therapist': therapist, 'sessions': sessions}
+    context = {"patient": patient,
+               'therapist': therapist, 'sessions': sessions}
     return render(request, "patient/patient_home.html", context)
+
 
 @login_required
 def session_detail(request, therapist_id, patient_id, session_id):
@@ -123,8 +135,10 @@ def session_detail(request, therapist_id, patient_id, session_id):
     therapist = Therapist.objects.get(user_id=therapist_id)
     session = Tx_Session.objects.get(id=session_id)
     notes = session.session_note_set.all().order_by('-creation_date')
-    context = {'notes': notes, 'patient': patient, 'therapist': therapist, 'session': session, 'note_form': note_form}
+    context = {'notes': notes, 'patient': patient,
+               'therapist': therapist, 'session': session, 'note_form': note_form}
     return render(request, 'sessions/session_detail.html', context)
+
 
 @login_required
 def add_note(request, user_id, session_id):
@@ -143,13 +157,16 @@ def add_note(request, user_id, session_id):
         new_note.save()
     return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
 
+
 @login_required
 @therapist_required
 def session_create(request, therapist_id, patient_id):
     session_form = NewSessionForm()
     patient = Patient.objects.get(user_id=patient_id)
-    context = {'session_form': session_form, 'therapist_id': therapist_id, 'patient': patient}
+    context = {'session_form': session_form,
+               'therapist_id': therapist_id, 'patient': patient}
     return render(request, 'sessions/new_session_form.html', context)
+
 
 @login_required
 @therapist_required

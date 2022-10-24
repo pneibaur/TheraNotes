@@ -3,11 +3,15 @@
 
 {% comment %} DISPLAY THERAPISTS. AVAILABLE TO PUBLIC {% endcomment %}
 {% if therapists %}
-<h1 class="grey-text text-lighten-2">MEET OUR STAFF</h1>
+<div class="row">
+    <h1 class="grey-text text-lighten-2 center">MEET OUR STAFF</h1>
+    <hr style="width: 40%; margin: 0 auto;">
+    <br>
+</div>
 <div class="row">
     {% for t in therapists %}
     <div class="col s12 m3">
-        <div class="card">
+        <div class="card m_card">
             <div class="card-content">
                 <span class="card-title">{{t}}</span>
             </div>
@@ -24,7 +28,7 @@
 <div class="row">
     {% for p in therapist_patients %}
     <div class="col s12 m3">
-        <div class="card">
+        <div class="card m_card">
             <div class="card-content">
                 <p class="card-title">{{p}} 
                 </p>
@@ -46,7 +50,7 @@
         <h1 class="grey-text text-lighten-2">UNASSIGNED PATIENTS</h1>
         {% for p in unassigned_patients %}
         <div class="col s12 m3">
-            <div class="card">
+            <div class="card m_card">
                 <div class="card-content">
                     {{p.user.first_name}} {{p.user.last_name}}
                 </div>
@@ -57,7 +61,7 @@
         </div>
         {% endfor %}
     {% else %}
-    <h1 class="grey-text text-lighten-2">ALL PATIENTS ARE ASSIGNED...</h1>
+    <h5 class="grey-text text-lighten-2 center">ALL PATIENTS ARE ASSIGNED...</h5>
     {% endif %}
 </div>
     

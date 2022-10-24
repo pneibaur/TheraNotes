@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1>PROFILE PAGE</h1>
+<div class="row center grey-text text-lighten-2">
+    <h1>PROFILE PAGE</h1>
+    <hr style="width: 40%; margin: 0 auto;">
+</div>
 
 {% comment %} CHECKS IF OBJECT THERAPIST HAS BEEN SENT TO THIS PAGE {% endcomment %}
 {% if therapist %}
-<div class="card">
+<div class="card m_card">
     <div class="card-content">
         <h1>{{therapist.user.first_name}} {{therapist.user.last_name}}</h1>
         <div class="details">
@@ -28,7 +30,7 @@
 {% if user.is_authenticated %}
     {% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
 
-    <div class="card">
+    <div class="card m_card">
         <div class="card-content">
             <h1>Patient {{patient.user.first_name}} {{patient.user.last_name}}</h1>
             <div class="details">
@@ -45,7 +47,7 @@
     {% else %}
     <div class="row center grey-text text-lighten-2">
         <h1>NOTHING TO DISPLAY</h1>
-        <hr>
+        <hr style="width: 40%; margin: 0 auto;">
         <h3>It seems you're at the wrong patient profile!</h3>
         <p>This could be because of the following:
             <ul>

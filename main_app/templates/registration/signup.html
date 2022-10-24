@@ -2,7 +2,22 @@
 
 {% block content %}
 
-<h1>signup page.</h1>
-<h3>sign up as a <a href="{% url 'therapist_signup' %}">therapist</a> or a <a href="{% url 'patient_signup' %}">patient</a></h3>
+<div class="row grey-text text-lighten-2 center">
+    <h1>Let's get you an account</h1>
+    <p><big>But first, we need to know who you are</big></p>
+    <br>
+    <hr style="width: 40%; margin: 0 auto;">
+</div>
+<div class="row center grey-text text-lighten-2">
+    <br>
+    <span><big> I am:  </big>
+        <a class="btn red darken-4" href="{% url 'therapist_signup' %}">
+            A Therapist
+        </a>    
+        <a class="btn red darken-4" href="{% url 'patient_signup' %}">
+            A Patient
+        </a>
+    </span>
+</div>
 
 {% endblock content %}
