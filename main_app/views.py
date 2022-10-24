@@ -15,6 +15,9 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def superman(request):
+    return render(request, 'superman.html')
+
 
 def signup(request):
     return render(request, 'registration/signup.html')
