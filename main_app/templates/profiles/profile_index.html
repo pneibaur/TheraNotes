@@ -40,26 +40,27 @@
     </div>
     {% endfor %}
 </div>
-{% endif %}
 <hr>
 <div class="row">
     {% if unassigned_patients %}
-    <h1 class="grey-text text-lighten-2">UNASSIGNED PATIENTS</h1>
-    {% for p in unassigned_patients %}
-    <div class="col s12 m3">
-        <div class="card">
-            <div class="card-content">
-                {{p.user.first_name}} {{p.user.last_name}}
-            </div>
-            <div class="card-action">
-                <a href="{% url 'patient_assign' therapist_id p.user_id %}">add patient</a>
+        <h1 class="grey-text text-lighten-2">UNASSIGNED PATIENTS</h1>
+        {% for p in unassigned_patients %}
+        <div class="col s12 m3">
+            <div class="card">
+                <div class="card-content">
+                    {{p.user.first_name}} {{p.user.last_name}}
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'patient_assign' therapist_id p.user_id %}">add patient</a>
+                </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     {% else %}
     <h1 class="grey-text text-lighten-2">ALL PATIENTS ARE ASSIGNED...</h1>
     {% endif %}
 </div>
     
+{% endif %}
+
 {% endblock content %}

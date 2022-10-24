@@ -110,8 +110,15 @@ def patient_unassign(request, therapist_id, patient_id):
 @login_required
 def patient_home(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
-    therapists = patient.therapist_set.all()
+    therapist = patient.therapist_set.first()
     sessions = patient.tx_session_set.all()
-    context = {"patient": patient, 'therapists': therapists, 'sessions': sessions}
+    context = {"patient": patient, 'therapist': therapist, 'sessions': sessions}
     return render(request, "patient/patient_home.html", context)
 
+@login_required
+def session_detail(request, therapist_id, patient_id, session_id):
+    patient = Patient.objects.get(user_id=patient_id)
+    therapist = Therapist.objects.get(user_id=therapist_id)
+    session = Tx_Session.objects.get(id=session_id)
+    context = {'patient': patient, 'therapist': therapist, 'session': session}
+    return render(request, 'sessions/session_detail.html', context)

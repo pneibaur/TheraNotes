@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row grey-text text-lighten-2 center">
+    <h1>SESSION DETAIL</h1>
+</div>
+<div class="row">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">
+                {{session.creation_date}}
+            </span>
+            <hr>
+            <h4>Charting: </h4>
+            <p>
+                {{session.session_chart}}
+            </p>
+            <hr>
+            <h4>Patient-friendly: </h4>
+            <p>
+                {{session.chart_patient_sees}}
+            </p>
+        </div>
+    </div>
+    <hr>
+    <h2 class="grey-text text-lighten-2 center">SESSION NOTES</h2>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">
+                NOTES GO HERE
+            </span>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

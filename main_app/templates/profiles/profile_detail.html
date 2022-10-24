@@ -25,21 +25,35 @@
     {% endif %}
     
 {% comment %} CHECKS IF USER IS THE PATIENT, OR THE THERAPIST BELONGS TO THE PATIENT {% endcomment %}
-{% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
+{% if user.is_authenticated %}
+    {% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
 
-<div class="card">
-    <div class="card-content">
-        <h1>Patient {{patient.user.first_name}} {{patient.user.last_name}}</h1>
-        <div class="details">
-            <p>Desired Treatment: {{patient.desired_treatment}}</p>
-            <p>Road Map: {{therapist.road_map}}</p>
-        </div>
-        <div class="card-action">
-            <a href="{% url 'patient_home' patient.user_id %}">{{patient.user.first_name}}'s Home Page</a>
+    <div class="card">
+        <div class="card-content">
+            <h1>Patient {{patient.user.first_name}} {{patient.user.last_name}}</h1>
+            <div class="details">
+                <p>Desired Treatment: {{patient.desired_treatment}}</p>
+                <p>Road Map: {{therapist.road_map}}</p>
+            </div>
+            <div class="card-action">
+                <a href="/patients/{{patient.user_id}}/home/">{{patient.user.first_name}}'s Home Page</a>
+            </div>
         </div>
     </div>
-</div>
+    {% else %}
+    <div class="row center grey-text text-lighten-2">
+        <h1>NOTHING TO DISPLAY</h1>
+        <hr>
+        <h3>It seems you're at the wrong patient profile!</h3>
+        <p>This could be because of the following:
+            <ul>
+                <li>You are a therapist who isn't assigned to this patient.</li>
+                <li>You are a patient who attempted to view another patient's profile.</li>
+            </ul>
+        </p>
+    </div>
 
+    {% endif %}
 {% endif %}
 
 {% endblock content %}

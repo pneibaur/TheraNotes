@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if user.id == patient.user_id or user.therapist in patient.therapist_set.all %}
+{% if user.id == patient.user_id or user.id == therapist.user_id %}
 
 <h1 class="grey-text text-lighten-2 center">{{patient.user.first_name}}'s home page</h1>
 <hr>
@@ -10,17 +10,9 @@
         <h3 class="grey-text text-lighten-2 center">OVERVIEW</h3>
         <div class="card">
             <div class="card-content">
-                {% if therapists.count < 1 %}
-                <span class="card-title">Therapists: 
-                    {% for t in therapists %}
-                    {{t.user.first_name}}, 
-                    {% endfor %}
-                </span>
-                {% else %}
-                <span class="card-title">Therapist: {{therapists.first.user.first_name}}</span>
-                <span class="card-title">License: {{therapists.first.therapy_license}}</span>
-                <span class="card-title">Specialty: {{therapists.first.treatment_specialty}}</span>
-                {% endif %}
+                <span class="card-title">Therapist: {{therapist.user.first_name}}</span>
+                <span class="card-title">License: {{therapist.therapy_license}}</span>
+                <span class="card-title">Specialty: {{therapist.treatment_specialty}}</span>
             </div>
         </div>
         <div class="card">
@@ -39,7 +31,16 @@
                 <span class="card-title">{{session.creation_date}}</span>
             </div>
             <div class="card-action">
-                <a href="#">DETAILS</a>
+{% comment %} hard-coding the URL, because the user can be a patient or a therapist, thus switching the ID's {% endcomment %}
+                {% if user.is_therapist %}
+                <a href="/therapists/{{user.id}}/patients/{{patient.user_id}}/session_detail/{{session.id}}/">
+                    DETAILS
+                </a>
+                {% elif user.is_patient %}
+                <a href="/therapists/{{therapist.user_id}}/patients/{{user.id}}/session_detail/{{session.id}}/">
+                    DETAILS
+                </a>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -47,5 +48,22 @@
     </div>
 </div>
     
+{% else %}
+<div class="row center grey-text text-lighten-2">
+    <h1>NOTHING TO SHOW</h1>
+    <hr>
+    <h4>It seems you are not allowed here</h4>
+    <p>
+        This could be due to the following:
+        <ul>
+            <li>you are not logged in,</li>
+            <li>you are not the correct patient,</li>
+            <li>or you not the patient's therapist.</li>
+        </ul>
+    </p>
+    <h5>
+        Please log in and navigate to your home page and try again!
+    </h5>
+</div>
 {% endif %}
 {% endblock content %}
