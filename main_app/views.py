@@ -1,3 +1,4 @@
+from hmac import new
 from multiprocessing import context
 from django.shortcuts import render, redirect
 from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm, NoteForm, NewSessionForm
@@ -111,7 +112,7 @@ def patient_unassign(request, therapist_id, patient_id):
 def patient_home(request, patient_id):
     patient = Patient.objects.get(user_id=patient_id)
     therapist = patient.therapist_set.first()
-    sessions = patient.tx_session_set.all()
+    sessions = patient.tx_session_set.all().order_by('-creation_date')
     context = {"patient": patient, 'therapist': therapist, 'sessions': sessions}
     return render(request, "patient/patient_home.html", context)
 
@@ -142,17 +143,24 @@ def add_note(request, user_id, session_id):
         new_note.save()
     return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
 
+@login_required
+@therapist_required
 def session_create(request, therapist_id, patient_id):
     session_form = NewSessionForm()
-    context = {'session_form': session_form, 'therapist_id': therapist_id, 'patient_id': patient_id}
+    patient = Patient.objects.get(user_id=patient_id)
+    context = {'session_form': session_form, 'therapist_id': therapist_id, 'patient': patient}
     return render(request, 'sessions/new_session_form.html', context)
 
+@login_required
+@therapist_required
 def add_new_session(request, therapist_id, patient_id):
     form = NewSessionForm(request.POST)
+    therapist = Therapist.objects.get(user_id=therapist_id)
     if form.is_valid():
+        print("MADE IT HERE!")
         new_session = form.save(commit=False)
-        new_session.patient = patient_id
-        new_session.therapist_set.add(id=therapist_id)
+        new_session.patient = Patient.objects.get(user_id=patient_id)
         session_id = new_session.id
         new_session.save()
-    return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
+        therapist.session.add(new_session)
+    return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=new_session.id)

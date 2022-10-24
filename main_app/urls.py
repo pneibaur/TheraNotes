@@ -20,5 +20,5 @@ urlpatterns = [
     path("patients/<int:patient_id>/home/", views.patient_home, name='patient_home'),
     path("session/<int:user_id>/add_note/<int:session_id>/", views.add_note, name='add_note'),
     path("session/<int:therapist_id>/session_create/<int:patient_id>/", views.session_create, name='session_create'),
-    path("session/<int:therapist_id>/patient/<int:patient_id>/new_session/<int:session_id>/", views.add_new_session, name='add_new_session'),
+    path("session/<int:therapist_id>/patient/<int:patient_id>/new_session/", views.add_new_session, name='add_new_session'),
 ]
