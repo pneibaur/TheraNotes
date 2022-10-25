@@ -1,8 +1,10 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
 }
 body {
+    background-color: rgb(57,57,188);
     background: linear-gradient(150deg, rgba(57, 57, 188, .9), rgba(0, 0, 0, .9)), url('../images/background2.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,6 +12,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
+
 main {
     flex: 1 0 auto;
 }
@@ -41,6 +44,6 @@ hr {
     height: auto;
 }
 
-/* .form-inputs {
-    background-color: red;
-} */
+.thin {
+    font-weight: 300;
+}
