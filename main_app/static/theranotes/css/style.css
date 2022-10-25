@@ -35,3 +35,12 @@ hr {
     color: white;
     border-radius: 10px;
 }
+
+.nav_logo {
+    max-width: 40px;
+    height: auto;
+}
+
+/* .form-inputs {
+    background-color: red;
+} */

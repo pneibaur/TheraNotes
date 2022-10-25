@@ -27,7 +27,7 @@ class Patient(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     desired_treatment = models.TextField(
-        max_length=250, default="Patient didn't specify...")
+        max_length=250, default="")
     road_map = models.TextField(max_length=250, default='None set')
 
     def get_absolute_url(self):

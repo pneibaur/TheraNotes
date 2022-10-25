@@ -1,12 +1,66 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
-<h1>therapist signup page.</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    {{user_form}}
-    {{therapist_form}}
-    <input type="submit" value="Submit">
-</form>
+<div class="row grey-text text-lighten-2 center">
+    <h2>Therapist signup</h2>
+    <hr><br>
+    <form class="col s12" action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12 m6">
+                <label class="validate" for="first_name">First Name</label>
+                {{user_form.first_name|add_class:"form-inputs white-text"|attr:"id:first_name"}}
+            </div>
+            <div class="col s12 m6">
+                <label class="validate" for="last_name">Last Name</label>
+                {{user_form.last_name|add_class:"form-inputs white-text"|attr:"id:last_name"}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <label class="validate" for="username">Username</label>
+                {{user_form.username|add_class:"form-inputs white-text"|attr:"id:username"}}
+            </div>
+            <div class="col s12 m6">
+                <label class="validate" for="email">Email</label>
+                {{user_form.email|add_class:"form-inputs white-text"|attr:"id:email"}}
+            </div>
+        </div>
+        <div class="row">
+            <label class="validate" for="interests">Your Interests</label>
+            {{user_form.interests|add_class:"form-inputs white-text"|attr:"id:interests"}}
+        </div>
+        <div class="row">
+            <label class="validate" for="bio">Bio</label>
+            {{user_form.bio|add_class:"form-inputs white-text"|attr:"id:bio"}}
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <label class="validate" for="password1">Password</label>
+                {{user_form.password1|add_class:"form-inputs white-text"|attr:"id:password1"}}
+            </div>
+            <div class="col s12 m6">
+                <label class="validate" for="password2">Confirm Password</label>
+                {{user_form.password2|add_class:"form-inputs white-text"|attr:"id:password2"}}
+                <span class="helper-text">Min 8 characters. Cannot be similar to username, name, or email.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <label for="therapy_license" class="validate">Professional title</label>
+                {{therapist_form.therapy_license|add_class:"form-inputs white-text"|attr:"id:therapy_license"}}
+            </div>
+            <div class="col s12 m6">
+                <label for="treatment_specialty" class="validate">What's your treatment specialty?</label>
+                {{therapist_form.treatment_specialty|add_class:"form-inputs white-text"|attr:"id:treatment_specialty"}}
+            </div>
+        </div>
+        <input class="btn red darken-4" type="submit" value="Submit">
+    </form>
+</div>
+<div class="row right">
+    <a class="btn yellow darken-2 grey-text text-darken-2" href="{% url 'home' %}">Cancel</a>
+</div>
 
 {% endblock content %}

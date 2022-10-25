@@ -1,5 +1,3 @@
-from pyexpat import model
-from statistics import mode
 from .models import Therapist, Patient, Session_Note, Tx_Session
 from django.forms import forms, ModelForm
 from django.contrib.auth import forms, get_user_model

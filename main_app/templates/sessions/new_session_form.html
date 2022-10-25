@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
-<div class="card m_card">
-    <div class="card-content">
-        <span class="card-title">New session for: </span>
-        <span class="card-title">{{patient.user.first_name}} {{patient.user.last_name}}</span>
-        <form action="{% url 'add_new_session' therapist_id patient.user_id %}" method="post">
-            {% csrf_token %}
-            {{session_form.as_p}}
+<div class="row center grey-text text-lighten-2">
+    <h5>New session for {{patient.user.first_name}}</h5>
+    <form class="col s12" action="{% url 'add_new_session' therapist_id patient.user_id %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field">
+                <label class="validate" for="session_chart">Session Chart</label>
+                {{session_form.session_chart|add_class:"form-inputs white-text"|attr:"id:session_chart"}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <label class="validate" for="session_chart">Session Notes for Patient</label>
+                {{session_form.chart_patient_sees|add_class:"form-inputs white-text"|attr:"id:session_chart"}}
+            </div>
+        </div>
             <input type="submit" value="Add Session" class="btn red darken-2">
-        </form>
-    </div>
+    </form>
 </div>
 
 {% endblock content %}

@@ -1,5 +1,4 @@
 
-from json import load
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "main_app",
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

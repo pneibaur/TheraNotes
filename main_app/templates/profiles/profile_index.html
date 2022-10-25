@@ -3,7 +3,7 @@
 
 {% comment %} DISPLAY THERAPISTS. AVAILABLE TO PUBLIC {% endcomment %}
 {% if therapists %}
-<div class="row">
+<div class="row center">
     <h1 class="grey-text text-lighten-2 center">MEET OUR STAFF</h1>
     <hr style="width: 40%; margin: 0 auto;">
     <br>
@@ -24,13 +24,13 @@
 </div>
 
 {% elif user.is_therapist %}
-<h1 class="grey-text text-lighten-2">CASELOAD</h1>
+<h1 class="center grey-text text-lighten-2">CASELOAD</h1>
 <div class="row">
     {% for p in therapist_patients %}
     <div class="col s12 m3">
         <div class="card m_card">
             <div class="card-content">
-                <p class="card-title">{{p}} 
+                <p class="card-title">{{p.user.first_name}} {{p.user.last_name}}
                 </p>
             </div>
             <div class="card-action">
@@ -47,7 +47,7 @@
 <hr>
 <div class="row">
     {% if unassigned_patients %}
-        <h1 class="grey-text text-lighten-2">UNASSIGNED PATIENTS</h1>
+        <h4 class="center grey-text text-lighten-2">Unassigned Patients</h4>
         {% for p in unassigned_patients %}
         <div class="col s12 m3">
             <div class="card m_card">

@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
-<div class="row white-text center">
-    <div class="col valign-wrapper">
-        <form action="{% url 'login' %}" method="post">
-            {% csrf_token %} {{form.as_p}}
-            <input class='btn red darken-4' type="submit" value="login">
-            <input type="hidden" name="next" value="{{next}}">
-        </form>
-    </div>
+<div class="row center grey-text text-lighten-2">
+    <h1>Login</h1>
+    <hr style="width: 40%; margin: 0 auto;">
+    <br><br>
+</div>
+<div class="row">
+    <form class="col s12" action="{% url 'login' %}" method="post">
+        {% csrf_token %} 
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label class="validate" for="email">Email</label>
+                {{form.username|add_class:"form-inputs white-text"|attr:"id:email"}}
+            </div>
+            <div class="input-field col s12 m6">
+                <label class="validate" for="password">Password</label>
+                {{form.password|add_class:"form-inputs white-text"|attr:"id:password"}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field center-align">
+                <input class='btn yellow darken-2 grey-text text-darken-2' type="submit" value="login">
+                <input type="hidden" name="next" value="{{next}}">
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock content %}
