@@ -42,15 +42,9 @@
             </div>
             <div class="card-action">
 {% comment %} hard-coding the URL, because the user can be a patient or a therapist, thus switching the ID's {% endcomment %}
-                {% if user.is_therapist %}
-                <a href="/therapists/{{user.id}}/patients/{{patient.user_id}}/session_detail/{{session.id}}/">
+                <a href="{% url 'session_detail' session.id %}">
                     DETAILS
                 </a>
-                {% elif user.is_patient %}
-                <a href="/therapists/{{therapist.user_id}}/patients/{{user.id}}/session_detail/{{session.id}}/">
-                    DETAILS
-                </a>
-                {% endif %}
             </div>
         </div>
         {% endfor %}

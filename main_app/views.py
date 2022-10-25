@@ -1,11 +1,11 @@
-from hmac import new
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from .forms import PatientSignupForm, CustomUserCreationForm, TherapistSignupForm, NoteForm, NewSessionForm
-from .models import Patient, Therapist, Tx_Session, User
+from .models import Patient, Session_Note, Therapist, Tx_Session, User
 from django.contrib.auth.decorators import login_required
 # Credit to Vitor Frietas for the guide on making decorators. see decorators.py for URL
 from .decorators import therapist_required, patient_required
+from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def home(request):
@@ -14,6 +14,7 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
 
 def superman(request):
     return render(request, 'superman.html')
@@ -132,34 +133,38 @@ def patient_home(request, patient_id):
 
 
 @login_required
-def session_detail(request, therapist_id, patient_id, session_id):
+def session_detail(request, session_id):
     note_form = NoteForm()
-    patient = Patient.objects.get(user_id=patient_id)
-    therapist = Therapist.objects.get(user_id=therapist_id)
     session = Tx_Session.objects.get(id=session_id)
+    patient = session.patient
+    therapist = session.patient.therapist_set.first()
     notes = session.session_note_set.all().order_by('-creation_date')
     context = {'notes': notes, 'patient': patient,
                'therapist': therapist, 'session': session, 'note_form': note_form}
     return render(request, 'sessions/session_detail.html', context)
 
 
+class SessionUpdate(UpdateView):
+    model = Tx_Session
+    fields = ['chart_patient_sees',]
+
 @login_required
 def add_note(request, user_id, session_id):
     form = NoteForm(request.POST)
-    user = User.objects.get(id=user_id)
-    if user.is_patient:
-        patient_id = user.id
-        therapist_id = user.patient.therapist_set.first().user_id
-    elif user.is_therapist:
-        therapist_id = user.id
-        patient_id = Tx_Session.objects.get(id=session_id).patient.user_id
     if form.is_valid():
         new_note = form.save(commit=False)
         new_note.user_id = user_id
         new_note.session_id = session_id
         new_note.save()
-    return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=session_id)
+    return redirect('session_detail', session_id=session_id)
 
+class NoteUpdate(LoginRequiredMixin, UpdateView):
+    model = Session_Note
+    fields = ['note', ]
+
+class NoteDelete(LoginRequiredMixin, DeleteView):
+    model = Session_Note
+    success_url = '/'
 
 @login_required
 @therapist_required

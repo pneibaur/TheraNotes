@@ -2,6 +2,9 @@
 {% load widget_tweaks %}
 {% block content %}
 
+<div class="row right">
+    <a class=" btn red darken-4" href="{% url 'patient_home' patient.user_id %}">Back</a>
+</div>
 <div class="row center grey-text text-lighten-2">
     <h5>New session for {{patient.user.first_name}}</h5>
     <form class="col s12" action="{% url 'add_new_session' therapist_id patient.user_id %}" method="post">
@@ -10,15 +13,17 @@
             <div class="input-field">
                 <label class="validate" for="session_chart">Session Chart</label>
                 {{session_form.session_chart|add_class:"form-inputs white-text"|attr:"id:session_chart"}}
+                <span class="grey-text helper-text">(Session charting cannot be edited or deleted after submission)</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field">
                 <label class="validate" for="session_chart">Session Notes for Patient</label>
                 {{session_form.chart_patient_sees|add_class:"form-inputs white-text"|attr:"id:session_chart"}}
+                <span class="grey-text helper-text">(This can be edited later)</span>
             </div>
         </div>
-            <input type="submit" value="Add Session" class="btn red darken-2">
+            <input type="submit" value="Add Session" class="btn yellow grey-text text-darken-2 darken-2">
     </form>
 </div>
 

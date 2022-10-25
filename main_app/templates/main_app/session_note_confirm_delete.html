@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row white-text center">
+    <h1>Delete Note</h1>
+    <p><big>Are you sure you want to delete this note?</big></p>
+</div>
+<div class="row center">
+    <div class="col s6 offset-s3">
+        <div class="card m_card">
+            <div class="card-content">
+                <span class="card-title">{{object.creation_date}}</span>
+                {{object.note}}
+            </div>
+            <div class="card-action">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input class="btn red darken-4" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

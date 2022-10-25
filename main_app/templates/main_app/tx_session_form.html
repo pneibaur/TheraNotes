@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="row">
+    <h1 class="grey-text text-lighten-2 center">Edit patient chart</h1>
+    <div class="card m_card">
+        <div class="card-content">
+            <span class="card-title">{{object.creation_date}}</span>
+            <form action="" method="post">
+                {% csrf_token %}
+                {% comment %} <label class="validate" for="session_note">Edit your note: </label> {% endcomment %}
+                {{form.chart_patient_sees|add_class:"input-field white-text"|attr:"id:session_note"}}
+                <input class="btn yellow darken-2" type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -45,6 +45,10 @@ class Tx_Session(models.Model):
 
     def __str__(self):
         return f"Tx Session for patient {self.patient.user.first_name}: {self.session_chart[:50]} "
+    
+    def get_absolute_url(self):
+        return reverse("session_detail", kwargs={"session_id": self.id})
+    
 
 
 class Therapist(models.Model):
@@ -66,3 +70,7 @@ class Session_Note(models.Model):
 
     def __str__(self):
         return f"session note from {self.user.first_name}"
+
+    def get_absolute_url(self):
+        return reverse("session_detail", kwargs={"session_id": self.session.id})
+    

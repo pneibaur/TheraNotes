@@ -53,3 +53,8 @@ hr {
     text-decoration-color: #b71c1c;
     text-decoration-thickness: 2px;
 }
+
+.scrollable {
+    height: 400px;
+    overflow: auto;
+}

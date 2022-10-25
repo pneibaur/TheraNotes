@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
 {% if user.is_therapist %}
@@ -9,8 +10,9 @@
 <br>
 {% endif %}
 
+{% comment %} SESSION DETAILS {% endcomment %}
 <div class="row grey-text text-lighten-2 center">
-    <h1>SESSION DETAIL</h1>
+    <h1 class="thin">SESSION DETAILS</h1>
 </div>
 {% if user.id == patient.user_id or user.id == therapist.user_id %}
 <div class="row">
@@ -32,14 +34,20 @@
                 {{session.chart_patient_sees}}
             </p>
         </div>
+        {% if user.is_therapist %}
+        <div class="card-action">
+            <a href="{% url 'session_update' session.id %}">Edit Patient Chart</a>
+        </div>
+        {% endif %}
     </div>
 </div>
+{% comment %} DISPLAY ALL NOTES {% endcomment %}
 <div class="row">
     <hr>
-    <div class="col s12 m6">
-        <h2 class="grey-text text-lighten-2 center">SESSION NOTES</h2>
+    <div class="col s12 m6 scrollable">
+        <h2 class="grey-text text-lighten-2 center thin">SESSION NOTES</h2>
+        {% for note in notes %}
         <div class="card m_card">
-            {% for note in notes %}
             <div class="card-content">
                 <span class="card-title">
                     {{note.user.first_name}}:
@@ -47,16 +55,23 @@
                 <p><small>{{note.creation_date}}</small></p>
                 <p><big> {{note.note}}</big></p>
             </div>
-            {% endfor %}
+            {% if user.id == note.user_id %}
+            <div class="card-action">
+                <a href="{% url 'note_delete' note.id %}">REMOVE</a>
+                <a href="{% url 'note_update' note.id %}">EDIT</a>
+            </div>
+            {% endif %}
         </div>
+        {% endfor %}
     </div>
+    {% comment %} ADD NEW NOTE {% endcomment %}
     <div class="col s12 m6">
-        <h2 class="grey-text text-lighten-2 center">ADD NOTE</h2>
+        <h2 class="grey-text text-lighten-2 center thin">ADD NOTE</h2>
         <div class="card m_card">
             <div class="card-content">
                 <form action="{% url 'add_note' user.id session.id %}" method="post">
                     {% csrf_token %}
-                    {{note_form.as_p}}
+                    {{note_form.note|add_class:"white-text"|attr:"id:add_note"|attr:"placeholder:Say something"}}
                     <input type="submit" value="Add" class="btn red darken-2">
                 </form>
             </div>
