@@ -19,7 +19,7 @@
     <nav class="head_foot nav_head">
         <div class="nav-wrapper">
             <div class="container">
-                <a class="brand-logo" href="{% url 'home' %}">
+                <a class="left logo-container" href="{% url 'home' %}">
                     <img class="nav_logo" src="{% static 'theranotes/images/logo3.png' %}" alt="Thera-Notes"> 
                 </a>
                 <ul class="right">
@@ -42,7 +42,7 @@
     </nav>
 </div>
 </header>
-<main>
+<main class="fade">
     <div class="container">
         {% block content %}
         {% endblock content %}
