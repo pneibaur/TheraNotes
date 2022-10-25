@@ -47,3 +47,9 @@ hr {
 .thin {
     font-weight: 300;
 }
+
+.home {
+    text-decoration: underline;
+    text-decoration-color: #b71c1c;
+    text-decoration-thickness: 2px;
+}
