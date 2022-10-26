@@ -1,5 +1,7 @@
-<img style="align: center;" src="static/../main_app/static/theranotes/images/logo3blue.png" width="100px">
 <h1 align="center">Thera-Notes</h1>
+<div align='center'>
+    <img src="static/../main_app/static/theranotes/images/logo3blue.png" width="100px">
+</div>
 <h3 align="center">Save the day in your therapy sessions</h3>
 <hr style="height: 1px; background-color: blue;">
 <p>
@@ -19,7 +21,7 @@
 </ul>
 <h2>PATIENT FEATURES</h2>
 <ul style="list-style-type: square;">
-<li>Security. Sign up as a patient and know that your identity is only known to your therapist.</li>    
+<li>Security again: Sign up as a patient and know that your identity is only known to your therapist.</li>    
 <li>See your therapist's profile, and any other therapists who may be part of the network!</li>    
 <li>A home page for you, to see your saved sessions, and the progress you've made.</li>    
 <li>See each session's details. Add a note to your therapist for them to see before your next session! </li>   
@@ -27,7 +29,7 @@
 <hr style="height: 1px; background-color: blue;">
 <h2>GETTING STARTED</h2>
 <P align="center">
-    <a href="https://thera-notes.herokuapp.com/">Visit our website!</a>
+    <a href="https://thera-notes.herokuapp.com/">Visit the website!</a>
 </P>
 
 ![screenshot](main_app/static/theranotes/images/landing_page.png)
