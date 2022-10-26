@@ -182,10 +182,8 @@ def add_new_session(request, therapist_id, patient_id):
     form = NewSessionForm(request.POST)
     therapist = Therapist.objects.get(user_id=therapist_id)
     if form.is_valid():
-        print("MADE IT HERE!")
         new_session = form.save(commit=False)
         new_session.patient = Patient.objects.get(user_id=patient_id)
-        session_id = new_session.id
         new_session.save()
         therapist.session.add(new_session)
-    return redirect('session_detail', therapist_id=therapist_id, patient_id=patient_id, session_id=new_session.id)
+    return redirect('session_detail', session_id=new_session.id)
